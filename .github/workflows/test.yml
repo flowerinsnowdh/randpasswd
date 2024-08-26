@@ -12,6 +12,7 @@ on:
 jobs:
 
   build-gnu-linux:
+    name: Test run - GNU/Linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,9 +22,10 @@ jobs:
         with:
           go-version: '1.23.0'
 
-      - name: Test run - GNU/Linux
+      - name: Test run
         run: go run -v ./...
   build-windows:
+    name: Test run - Windows
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,5 +35,5 @@ jobs:
         with:
           go-version: '1.23.0'
 
-      - name: Test run - Windows
+      - name: Test run
         run: go run -v ./...

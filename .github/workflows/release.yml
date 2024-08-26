@@ -11,43 +11,43 @@ on:
 jobs:
 
   build-gnu-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.23.0'
-
-      - name: Build - GNU/Linux
-        run: go build -v ./...
-
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.23.0'
-
-      - name: Build - Windows
-        run: go build -v ./...
-
-  release:
-    needs:
-      - build-gnu-linux
-      - build-windows
-    name: Release
+    name: Release - GNU/Linux
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.23.0'
+
+      - name: Build
+        run: go build -v ./...
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            randpasswd
-            randpasswd.exe
+          files: randpasswd
+
+  build-windows:
+    name: Release - Windows
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.23.0'
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: randpasswd.exe
