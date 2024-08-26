@@ -37,6 +37,9 @@ jobs:
         run: go build -v ./...
 
   release:
+    needs:
+      - build-gnu-linux
+      - build-windows
     name: Release
     runs-on: ubuntu-latest
     permissions:
